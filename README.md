@@ -1,30 +1,32 @@
-# React + TypeScript + Vite
+# Memory Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## TODO Capabilities
+- Handle responsiveness
+- Keyboard a11y
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## TODO Settings
+- light/dark mode
+- difficulty: Cards Count
+- Number of seconds to choose a card
+- game mod: limited number of attempts;
 
-## Expanding the ESLint configuration
+## TODO Features
+- show hint
+- score: show number of tries
+- score: show elapsed time
+- clue: 50% fewer options
+- gameplay: replace  gradually old images with new ones between games
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Component structure draft
+App
+    -- image fetching
+    Settings
+    Game
+        Cards
+        Score
+        Controls
+        Info
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
