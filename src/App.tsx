@@ -1,24 +1,24 @@
 import { Game } from "./Game";
 import { useEffect, useReducer } from "react";
 import { GameStateReducer } from "./gameEngine/stateReducer.ts";
-import * as imagesCollection from "./imagesCollection";
-import cats10 from "./api/mockedCats.ts";
 import { defaultState } from "./gameEngine/defaultState.ts";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-
-const catsUrls: string[] = cats10
-  .slice(0, defaultState.settings.imagesCount)
-  .map((c) => c.url);
+import { populateCatsCollection } from "./api/catsFetcher";
 
 function App() {
   const [state, dispatch] = useReducer(GameStateReducer, defaultState);
 
   useEffect(() => {
-    imagesCollection.populate(catsUrls);
-    dispatch({ type: "Loaded" });
+    populateCatsCollection()
+      .then(() => {
+        dispatch({ type: "Loaded" });
+      })
+      .catch(() => {
+        console.log("failed to fetch cats");
+      });
   }, []);
 
   return <Game state={state} dispatch={dispatch} />;
