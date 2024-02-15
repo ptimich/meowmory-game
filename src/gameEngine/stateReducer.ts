@@ -17,11 +17,16 @@ const GameStateReducer = (state: GameState, action: Actions): GameState => {
     case "Flip": {
       const [firstPick] = state.flippedCardsIndexes;
       if (firstPick === undefined) {
+        const isGameStart = state.gameState !== "inProgress";
         return {
           ...state,
           flippedCardsIndexes: [action.index, undefined],
-          score: { ...state.score },
-          gameState: "inProgress",
+          ...(isGameStart
+            ? {
+                gameState: "inProgress",
+                startedAt: Date.now(),
+              }
+            : {}),
         };
       } else {
         const {
@@ -63,6 +68,10 @@ const GameStateReducer = (state: GameState, action: Actions): GameState => {
             ? [...guessedCardsValues, cards[flippedCardsIndexes[0] as number]]
             : guessedCardsValues,
         gameState: isGameEnd ? "ended" : state.gameState,
+        score: {
+          ...state.score,
+          timePlayed: Date.now() - state.startedAt,
+        },
       };
     }
     case "Shuffle": // TODO

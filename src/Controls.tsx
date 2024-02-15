@@ -8,7 +8,7 @@ export const Controls = ({ startGame }: PropsWithChildren<ControlsProps>) => {
   return (
     <Box alignItems="center" sx={{ flexBasis: "4rem", minHeight: "4rem" }}>
       <Button variant="contained" onClick={startGame}>
-        New Game!
+        Reset
       </Button>
     </Box>
   );

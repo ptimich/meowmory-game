@@ -1,4 +1,9 @@
-import { MouseEventHandler, PropsWithChildren, useEffect } from "react";
+import {
+  MouseEventHandler,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+} from "react";
 import type { Dispatch } from "react";
 import { Cards } from "./Cards.tsx";
 import { createRandomizedMap } from "./utils/array";
@@ -8,6 +13,7 @@ import { Box } from "@mui/material";
 import bgTexture from "./assets/zenbg.png";
 import { Controls } from "./Controls";
 import { Header } from "./Header";
+import { Score } from "./Score";
 
 interface GameProps {
   dispatch: Dispatch<Actions>;
@@ -22,6 +28,7 @@ const Game = ({ dispatch, state }: PropsWithChildren<GameProps>) => {
     flippedCardsIndexes,
     guessedCardsValues,
     settings: { imagesCount },
+    score,
   } = state;
 
   if (roundResult !== undefined) {
@@ -30,23 +37,29 @@ const Game = ({ dispatch, state }: PropsWithChildren<GameProps>) => {
     }, 500);
   }
 
-  const startFn = () =>
-    dispatch({ type: "ResetGame", cards: createRandomizedMap(imagesCount) });
+  const startFn = useCallback(
+    () =>
+      dispatch({ type: "ResetGame", cards: createRandomizedMap(imagesCount) }),
+    [dispatch, imagesCount],
+  );
 
   useEffect(() => {
     startFn();
   }, []);
 
-  const clickHandler: MouseEventHandler<HTMLElement> = (ev) => {
-    if (!(ev.target instanceof HTMLElement)) {
-      return;
-    }
-    const index = ev.target.dataset["index"];
-    if (!index) {
-      return;
-    }
-    dispatch({ type: "Flip", index: parseInt(index) });
-  };
+  const clickHandler: MouseEventHandler<HTMLElement> = useCallback(
+    (ev) => {
+      if (!(ev.target instanceof HTMLElement)) {
+        return;
+      }
+      const index = ev.target.dataset["index"];
+      if (!index) {
+        return;
+      }
+      dispatch({ type: "Flip", index: parseInt(index) });
+    },
+    [dispatch],
+  );
 
   return (
     <Box
@@ -62,7 +75,11 @@ const Game = ({ dispatch, state }: PropsWithChildren<GameProps>) => {
       <Header />
       <Controls startGame={startFn} />
       {gameState === "ended" ? (
-        <h1>You won!</h1>
+        <Score
+          tries={score.tries}
+          timePlayed={score.timePlayed}
+          clickHandler={startFn}
+        />
       ) : (
         <Cards
           cardClickHandler={clickHandler}
