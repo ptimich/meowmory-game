@@ -1,6 +1,6 @@
 import { GameState } from "./types.ts";
 
-const defaultCardsCount = 16;
+const defaultCardsCount = 24;
 const defaultState: GameState = {
   settings: {
     cardsCount: defaultCardsCount,

@@ -4,6 +4,10 @@ import { Cards } from "./Cards.tsx";
 import { createRandomizedMap } from "./utils/array";
 import { Actions } from "./gameEngine/actions.ts";
 import { GameState } from "./gameEngine/types.ts";
+import { Box } from "@mui/material";
+import bgTexture from "./assets/zenbg.png";
+import { Controls } from "./Controls";
+import { Header } from "./Header";
 
 interface GameProps {
   dispatch: Dispatch<Actions>;
@@ -45,7 +49,18 @@ const Game = ({ dispatch, state }: PropsWithChildren<GameProps>) => {
   };
 
   return (
-    <div className="surface">
+    <Box
+      sx={{
+        display: "flex",
+        height: "100vh",
+        backgroundImage: `url(${bgTexture})`,
+        flexDirection: "column",
+        justifyContent: "start",
+        alignItems: "center",
+      }}
+    >
+      <Header />
+      <Controls startGame={startFn} />
       {gameState === "ended" ? (
         <h1>You won!</h1>
       ) : (
@@ -56,8 +71,7 @@ const Game = ({ dispatch, state }: PropsWithChildren<GameProps>) => {
           guessedCards={guessedCardsValues}
         />
       )}
-      <button onClick={startFn}>Start</button>
-    </div>
+    </Box>
   );
 };
 

@@ -1,6 +1,7 @@
 import { MouseEventHandler, PropsWithChildren } from "react";
 import Card from "./Card";
 import * as imagesCollection from "./imagesCollection";
+import { Container } from "@mui/material";
 
 interface CardsProps {
   cardClickHandler: MouseEventHandler<HTMLElement>;
@@ -18,7 +19,21 @@ export const Cards = ({
   const isNumMode = imagesCollection.isEmpty();
 
   return (
-    <div className="cards" onClick={cardClickHandler}>
+    <Container
+      fixed
+      maxWidth="md"
+      onClick={cardClickHandler}
+      sx={{
+        display: "grid",
+        gap: 2,
+        gridTemplateColumns: "repeat(6, 1fr)",
+        gridTemplateRows: "repeat(4, 1fr)",
+        justifyItems: "center",
+        maxWidth: {
+          sm: "100vh",
+        },
+      }}
+    >
       {cards.map((cardValue, cardIndex) => (
         <Card
           key={cardIndex}
@@ -29,6 +44,6 @@ export const Cards = ({
           isPicked={activePicks.includes(cardIndex)}
         />
       ))}
-    </div>
+    </Container>
   );
 };

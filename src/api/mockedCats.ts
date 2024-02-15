@@ -1,5 +1,17 @@
 export default [
   {
+    id: "3ml",
+    url: "https://cdn2.thecatapi.com/images/3ml.jpg",
+    width: 3888,
+    height: 2592,
+  },
+  {
+    id: "530",
+    url: "https://cdn2.thecatapi.com/images/530.jpg",
+    width: 448,
+    height: 538,
+  },
+  {
     id: "5q",
     url: "https://cdn2.thecatapi.com/images/5q.jpg",
     width: 500,
