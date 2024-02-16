@@ -44,7 +44,7 @@ const Card = ({
         <CardMedia
           component="img"
           src={imageUrl}
-          alt={cardValue}
+          alt={cardValue.toString()}
           sx={{
             aspectRatio: "1/1",
             objectFit: "cover",

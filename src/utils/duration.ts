@@ -1,7 +1,5 @@
 export const formatMillis = (millis: number): string => {
-  const minutes = Math.floor(millis / 60000);
-  const seconds = ((millis % 60000) / 1000).toFixed(0);
-  return seconds == 60
-    ? minutes + 1 + ":00"
-    : minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  const seconds = Math.floor((millis % 60000) / 1000).toString();
+  const minutes = Math.floor(millis / 60000).toString();
+  return `${minutes.padStart(2, "0")}m:${seconds.padStart(2, "0")}s`;
 };

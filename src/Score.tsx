@@ -19,7 +19,7 @@ export const Score = ({
       open={true}
       onClick={clickHandler}
     >
-      <Stack container spacing={4}>
+      <Stack spacing={4}>
         <Typography variant="h5">Number of tries {tries}</Typography>
         <Typography variant="h5">
           Time played {formatMillis(timePlayed)}

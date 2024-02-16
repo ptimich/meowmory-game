@@ -7,28 +7,32 @@ interface CatProps {
   url: string;
 }
 
-export const fetchCats = async (): Promise<CatProps[]> => {
-  return fetch("https://api.thecatapi.com/v1/images/search?limit=10")
-    .then(async (response) => {
+export const fetchCats = async () => {
+  return fetch("https://api.thecatapi.com/v1/images/search?limit=10").then(
+    async (response) => {
       if (!response.ok || response.status !== 200)
         throw new Error("Fetch error");
       const cats = (await response.json()) as CatProps[];
-      return cats.map((cat) => ({ id: cat.id, url: cat.url }));
-    })
-    .catch(() => {
-      console.log("Network error");
-    });
+      return cats.map<CatProps>((cat) => ({ id: cat.id, url: cat.url }));
+    },
+  );
 };
 
 // 20 unique cats is fine for now
 export const populateCatsCollection = async () => {
-  const cat1 = await fetchCats();
-  const cat2 = await fetchCats();
-  const repo = [...cat1, ...cat2].reduce((acc, cat) => {
-    acc[cat.id] = cat.url;
-    return acc;
-  }, {});
-  populate(Object.values(repo));
+  try {
+    const cat1 = await fetchCats();
+    const cat2 = await fetchCats();
+    const repo = [...cat1, ...cat2].reduce(
+      (acc, cat) => {
+        return { ...acc, [cat.id]: cat.url };
+      },
+      {} as Record<string, string>,
+    );
+    populate(Object.values(repo));
+  } catch (err) {
+    console.log("Could not fetch cats");
+  }
 };
 
 export const populateFakeCatsCollection = () => {
