@@ -1,4 +1,14 @@
-# Memory Game
+# Meow-mory Game
+
+A game which helps improving your memory while looking at cats
+
+## Build
+```shell
+pnpm install
+pnpm build
+pnpm preview
+```
+Open browser at url: `http://localhost:4173/`
 
 ## TODO Capabilities
 - Handle responsiveness

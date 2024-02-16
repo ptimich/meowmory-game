@@ -1,7 +1,7 @@
 import { MouseEventHandler, PropsWithChildren } from "react";
 import MuiCard from "@mui/material/Card";
-import { Box, CardMedia, Fade } from "@mui/material";
-import CardVerso from "./assets/card-verso.svg";
+import { CardMedia, Fade } from "@mui/material";
+import CardVersoPath from "./assets/cardVerso.svg";
 
 interface CardProps {
   cardValue: number;
@@ -52,7 +52,9 @@ const Card = ({
           }}
         ></CardMedia>
       </Fade>
-      <Box
+      <CardMedia
+        component="div"
+        image={CardVersoPath}
         data-index={cardIndex}
         sx={[
           {
@@ -61,9 +63,7 @@ const Card = ({
             top: 0,
             left: 0,
             aspectRatio: "1 / 1",
-            backgroundImage: `url(${CardVerso})`,
             opacity: 1,
-            transition: "opacity ",
           },
           isPicked && { opacity: 0 },
         ]}
