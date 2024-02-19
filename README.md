@@ -1,6 +1,7 @@
 # Meow-mory Game
 
-A game which helps improving your memory while looking at cats
+A game which helps improving your memory while looking at cats.
+Preview available at https://meowmory-app.pages.dev/
 
 ## Build
 
